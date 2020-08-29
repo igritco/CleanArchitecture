@@ -34,7 +34,7 @@ namespace ToDoApp.Client.Blazor.Services
 
         public async Task<string> Register(RegisterModel registerModel)
         {
-            var postTask = await this._httpClient.PostAsJsonAsync("api/account/register", new RegisterUserCommand { Email = registerModel.Email, Password = registerModel.Password });
+            var postTask = await this._httpClient.PostAsJsonAsync("api/account/register", new RegisterUserCommand(registerModel.Email, registerModel.Password));
             var result = await postTask.Content.ReadAsStringAsync();
             return result;
         }
@@ -42,7 +42,7 @@ namespace ToDoApp.Client.Blazor.Services
         // PostJsonAsync throws an error when reading string result - this is why I switched to PostAsync
         public async Task<string> Login(LoginModel loginModel)
         {
-            var tokenTask = await this._httpClient.PostAsJsonAsync("api/account/login", new GetTokenQuery { Username = loginModel.Email, Password = loginModel.Password });
+            var tokenTask = await this._httpClient.PostAsJsonAsync("api/account/login", new GetTokenQuery(loginModel.Email, loginModel.Password));
             var token = await tokenTask.Content.ReadAsStringAsync();
             if (string.IsNullOrEmpty(token))
             {

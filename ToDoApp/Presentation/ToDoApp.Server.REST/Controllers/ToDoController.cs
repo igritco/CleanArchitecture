@@ -34,7 +34,7 @@ namespace ToDoApp.Server.REST.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateToDo(CreateToDoCommand command)
         {
-            command.Username = User.Identity.Name;
+            command.SetUsername(User.Identity.Name);
             await _mediator.Send(command);
             return Ok();
         }
@@ -42,7 +42,7 @@ namespace ToDoApp.Server.REST.Controllers
         [HttpPut]
         public async Task<IActionResult> UpdateToDo(UpdateToDoCommand command)
         {
-            command.Username = User.Identity.Name;
+            command.SetUsername(User.Identity.Name);
             await _mediator.Send(command);
             return Ok();
         }
